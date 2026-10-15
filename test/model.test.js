@@ -75,3 +75,22 @@ test('invalid range, duplicate identifiers and negative tolerance are rejected',
     assert.throws(() => analyze(x));
   }
 });
+
+test('review reasons distinguish absent, unqualified, future and expired calibration', () => {
+  for (const [code, mutate] of [
+    ['evidenceMissing', (c) => (c.evidence = null)],
+    ['evidenceUnqualified', (c) => (c.evidence.qualified = false)],
+    ['evidenceFuture', (c) => (c.evidence.validFrom = '2026-11-01T00:00:00Z')],
+    ['evidenceExpired', (c) => (c.evidence.validUntil = '2026-10-01T00:00:00Z')],
+  ]) {
+    for (const locale of ['fr', 'en', 'es']) {
+      const x = fixture();
+      x.fabs = x.fabs.slice(0, 1);
+      mutate(x.fabs[0].capabilities[0]);
+      const report = analyze(x, { locale });
+      assert.equal(report.profiles[0].steps[0].state, 'unknown');
+      assert.ok(report.profiles[0].steps[0].reasons.includes(code));
+      assert.ok(report.findings.find((f) => f.code === code).message);
+    }
+  }
+});

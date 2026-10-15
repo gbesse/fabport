@@ -1,4 +1,19 @@
 export const translations = {
+  evidenceMissing: [
+    '{fab}/{step}: preuve de calibration absente.',
+    '{fab}/{step}: calibration evidence is missing.',
+    '{fab}/{step}: faltan pruebas de calibración.',
+  ],
+  evidenceUnqualified: [
+    '{fab}/{step}: preuve de calibration non qualifiée.',
+    '{fab}/{step}: calibration evidence is unqualified.',
+    '{fab}/{step}: pruebas de calibración sin calificar.',
+  ],
+  evidenceFuture: [
+    '{fab}/{step}: preuve de calibration pas encore valide.',
+    '{fab}/{step}: calibration evidence is not yet valid.',
+    '{fab}/{step}: las pruebas de calibración aún no son válidas.',
+  ],
   selectFile: ['Choisir un fichier', 'Choose a file', 'Elegir un archivo'],
   language: ['Langue', 'Language', 'Idioma'],
   settings: ['Votre expérience', 'Your experiment', 'Tu experimento'],

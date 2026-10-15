@@ -52,6 +52,25 @@ try {
     );
     assert.equal(await page.locator('#notice').textContent(), message('userNotice', locale));
     assert.equal(await page.locator('#fields input').count(), 0);
+    const imported = JSON.parse(await page.locator('#input').inputValue());
+    for (const [code, mutate] of [
+      ['evidenceMissing', (c) => (c.evidence = null)],
+      ['evidenceUnqualified', (c) => (c.evidence.qualified = false)],
+      ['evidenceFuture', (c) => (c.evidence.validFrom = '2026-11-01T00:00:00Z')],
+    ]) {
+      const specimen = structuredClone(imported);
+      specimen.fabs = specimen.fabs.slice(0, 1);
+      mutate(specimen.fabs[0].capabilities[0]);
+      await page.locator('#input').fill(JSON.stringify(specimen));
+      await page.locator('#apply').click();
+      const result = JSON.parse(await page.locator('#report').textContent());
+      assert.ok(result.findings.some((f) => f.code === code));
+      assert.ok(
+        (await page.locator('#insights').textContent()).includes(
+          message(code, locale, { fab: specimen.fabs[0].id, step: specimen.requirements[0].id }),
+        ),
+      );
+    }
     const input = await page.locator('#input').inputValue();
     await page.locator('#locale').selectOption(locale === 'fr' ? 'es' : 'fr');
     await page.locator('#locale').selectOption(locale);

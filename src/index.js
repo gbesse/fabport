@@ -55,12 +55,16 @@ function evaluate(r, c, asOf, locale) {
     incompatible = true;
     reasons.push('rangeExceeded');
   }
-  if (
-    !c.evidence ||
-    !c.evidence.qualified ||
-    Date.parse(asOf) < Date.parse(c.evidence.validFrom) ||
-    Date.parse(asOf) > Date.parse(c.evidence.validUntil)
-  ) {
+  if (!c.evidence) {
+    unknown = true;
+    reasons.push('evidenceMissing');
+  } else if (!c.evidence.qualified) {
+    unknown = true;
+    reasons.push('evidenceUnqualified');
+  } else if (Date.parse(asOf) < Date.parse(c.evidence.validFrom)) {
+    unknown = true;
+    reasons.push('evidenceFuture');
+  } else if (Date.parse(asOf) > Date.parse(c.evidence.validUntil)) {
     unknown = true;
     reasons.push('evidenceExpired');
   }

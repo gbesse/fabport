@@ -71,3 +71,7 @@ Pruebas de decisiones y contraejemplos, validación de entrada, códigos de sali
 Alfa independiente bajo MIT, sin afiliación a Atomic Machines. Ejemplos y pruebas de demo sintéticos, sin equipos ni API industrial conectados. Repositorio autónomo; no publicado en npm.
 
 [Matter Compiler](https://www.atomicmachines.com/matter-compiler) · [PartCAD](https://github.com/partcad/partcad) · [Bluesky](https://blueskyproject.io/) · [OPC UA Job Management](https://reference.opcfoundation.org/specs/OPC-40001-3/full) · [QIF](https://www.nist.gov/publications/end-end-quality-information-framework-qif-technology-survey)
+
+## Motivos de revisión de calibración
+
+La revisión distingue pruebas ausentes, sin calificar, futuras y caducadas en resultados, página y exportación JSON. Siguen como `unknown` y no certifican máquinas; indican qué pruebas declaradas deben revisarse.

@@ -75,3 +75,5 @@ Alfa independiente bajo MIT, sin afiliación a Atomic Machines. Ejemplos y prueb
 ## Motivos de revisión de calibración
 
 La revisión distingue pruebas ausentes, sin calificar, futuras y caducadas en resultados, página y exportación JSON. Siguen como `unknown` y no certifican máquinas; indican qué pruebas declaradas deben revisarse.
+
+Cada opción evaluada incluye `basis`: fecha de revisión, requisito, capacidad declarada (operación, material, rango, precisión) y prueba de calibración con fechas. Una ruta ausente tiene `basis: null`. El informe copia estos datos para revisar sin buscar solo ID. Son declaraciones proporcionadas, sin autenticación ni nueva cualificación física; las adaptaciones siguen exigiendo cualificación propia.

@@ -94,3 +94,31 @@ test('review reasons distinguish absent, unqualified, future and expired calibra
     }
   }
 });
+
+test('each selected option exports the complete declared comparison and calibration basis', () => {
+  for (const locale of ['fr', 'en', 'es']) {
+    const input = fixture(),
+      result = analyze(input, { locale }),
+      step = result.profiles[0].steps[0];
+    const capability = input.fabs[0].capabilities.find((c) => c.id === step.capabilityId);
+    assert.equal(step.basis.asOf, input.asOf);
+    assert.deepEqual(step.basis.requirement, input.requirements[0]);
+    assert.deepEqual(step.basis.capability, {
+      id: capability.id,
+      operation: capability.operation,
+      material: capability.material,
+      maxErrorUm: capability.maxErrorUm,
+      range: capability.range,
+    });
+    assert.deepEqual(step.basis.calibration, capability.evidence);
+    step.basis.calibration.qualified = false;
+    step.basis.capability.range.max = -1;
+    assert.equal(capability.evidence.qualified, true);
+    assert.ok(capability.range.max > 0);
+  }
+});
+test('missing routes have no fabricated capability basis', () => {
+  const input = fixture();
+  input.fabs[0].capabilities = [];
+  assert.ok(analyze(input).profiles[0].steps.every((step) => step.basis === null));
+});

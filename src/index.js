@@ -73,6 +73,24 @@ function evaluate(r, c, asOf, locale) {
     reasons,
     capabilityId: c.id,
     evidenceId: c.evidence?.id ?? null,
+    basis: {
+      asOf,
+      requirement: {
+        id: r.id,
+        operation: r.operation,
+        material: r.material,
+        maxErrorUm: r.maxErrorUm,
+        range: r.range,
+      },
+      capability: {
+        id: c.id,
+        operation: c.operation,
+        material: c.material,
+        maxErrorUm: c.maxErrorUm,
+        range: c.range,
+      },
+      calibration: c.evidence,
+    },
   };
 }
 export function analyze(input, { locale = 'fr' } = {}) {
@@ -134,6 +152,7 @@ export function analyze(input, { locale = 'fr' } = {}) {
           reasons: [f.complete ? 'operationMissing' : 'profileIncomplete'],
           capabilityId: null,
           evidenceId: null,
+          basis: null,
         };
       else if (selected.state === 'incompatible' && !f.complete)
         selected = {
@@ -141,6 +160,7 @@ export function analyze(input, { locale = 'fr' } = {}) {
           reasons: ['profileIncomplete'],
           capabilityId: null,
           evidenceId: null,
+          basis: null,
         };
       steps.push({ id: r.id, ...selected, options });
     }

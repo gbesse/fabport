@@ -75,3 +75,5 @@ Independent MIT alpha, not affiliated with Atomic Machines. Synthetic demo examp
 ## Calibration review reasons
 
 Review now distinguishes missing, unqualified, future and expired evidence in results, the page and JSON export. These reasons remain `unknown` and certify no machine; they identify the declared evidence requiring review.
+
+Each evaluated option now contains `basis`: review date, requirement, declared capability (operation, material, range, precision) and calibration evidence with dates. Missing routes have `basis: null`. Reports copy these values for review without looking up IDs alone. These are supplied declarations, without authentication or new physical qualification; adaptations still require their own qualification.

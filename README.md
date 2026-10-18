@@ -75,3 +75,5 @@ Alpha indépendante sous MIT, non affiliée à Atomic Machines. Exemples et preu
 ## Motifs de revue de calibration
 
 La revue distingue désormais preuve absente, non qualifiée, future et expirée dans les résultats, la page et l’export JSON. Ces motifs restent `unknown` et ne certifient aucune machine ; ils indiquent quelle preuve déclarée doit être examinée.
+
+Chaque option évaluée contient désormais `basis` : date d’examen, exigence, capacité déclarée (opération, matériau, plage, précision) et pièce de calibration avec ses dates. Une route absente a `basis: null`. Le rapport copie ces données pour permettre une revue sans rechercher les seuls identifiants. Ce sont des déclarations fournies, sans authentification ni nouvelle qualification physique ; une adaptation exige toujours sa propre qualification.
